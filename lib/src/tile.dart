@@ -106,7 +106,9 @@ class TimelineTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
+    return InkWell(
+        onTap: onTap,
+        child: LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         double startCrossAxisSpace = 0;
         double endCrossAxisSpace = 0;
@@ -125,9 +127,7 @@ class TimelineTile extends StatelessWidget {
                   axis == TimelineAxis.vertical ? null : startCrossAxisSpace,
               width: axis == TimelineAxis.vertical ? startCrossAxisSpace : null,
             ),
-          InkWell(
-            onTap: onTap,
-            child: _Indicator(
+          _Indicator(
               axis: axis,
               beforeLineStyle: beforeLineStyle,
               afterLineStyle: afterLineStyle,
@@ -135,7 +135,6 @@ class TimelineTile extends StatelessWidget {
               hasIndicator: hasIndicator,
               isLast: isLast,
               isFirst: isFirst,
-            ),
           ),
           if (endCrossAxisSpace > 0)
             SizedBox(
@@ -208,6 +207,7 @@ class TimelineTile extends StatelessWidget {
                 ),
               );
       },
+    )
     );
   }
 
