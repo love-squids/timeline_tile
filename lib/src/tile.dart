@@ -48,6 +48,7 @@ class TimelineTile extends StatelessWidget {
     this.isLast = false,
     this.indicatorStyle = const IndicatorStyle(width: 25),
     this.beforeLineStyle = const LineStyle(),
+    this.onTap,
     LineStyle? afterLineStyle,
   })  : afterLineStyle = afterLineStyle ?? beforeLineStyle,
         assert(alignment != TimelineAlign.start || startChild == null,
@@ -101,6 +102,7 @@ class TimelineTile extends StatelessWidget {
   /// The style used to customize the line rendered after the indicator.
   /// If null, it defaults to [beforeLineStyle].
   final LineStyle afterLineStyle;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -123,14 +125,17 @@ class TimelineTile extends StatelessWidget {
                   axis == TimelineAxis.vertical ? null : startCrossAxisSpace,
               width: axis == TimelineAxis.vertical ? startCrossAxisSpace : null,
             ),
-          _Indicator(
-            axis: axis,
-            beforeLineStyle: beforeLineStyle,
-            afterLineStyle: afterLineStyle,
-            indicatorStyle: indicatorStyle,
-            hasIndicator: hasIndicator,
-            isLast: isLast,
-            isFirst: isFirst,
+          InkWell(
+            onTap: onTap,
+            child: _Indicator(
+              axis: axis,
+              beforeLineStyle: beforeLineStyle,
+              afterLineStyle: afterLineStyle,
+              indicatorStyle: indicatorStyle,
+              hasIndicator: hasIndicator,
+              isLast: isLast,
+              isFirst: isFirst,
+            ),
           ),
           if (endCrossAxisSpace > 0)
             SizedBox(
